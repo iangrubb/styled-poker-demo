@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Transition } from 'react-transition-group'
+
+import { CardFrame } from '../styles/components'
 
 import CardBack from './CardBack'
 import CardFace from './CardFace'
@@ -9,29 +11,18 @@ import CardFace from './CardFace'
 
 export default class Card extends Component {
 
-    // Is told whether to flip face up or down, then adjusts its angle accordingly.
+    // Need to know the distance change to calculate rotation speed.
 
-    // Cards should always flip inwards, so they need to know their rotation and their left/right position.
+    state = {previousFlips: null, currentFlips: null, flipDuration: null}
 
-    // Needs to know previous angle, so that it knows what to add or subtract
+    static getDerivedStateFromProps(props, state) {
 
-    determineAngle = (faceUp, x, rotation) => {
+        const flipDuration = Math.abs(props.flips - state.currentFlips) * props.flipVelocity
 
-        if (faceUp) {
-
-            const left = x < 0
-            const inverted = rotation < 0
-
-            if ( (inverted && left) || (!inverted && !left) ) {
-                console.log("0")
-                return 0
-            } else {
-                console.log("360")
-                return 360
-            }
-
-        } else {
-            return 180
+        return {
+            previousFlips: state.currentFlips,
+            currentFlips: props.flips,
+            flipDuration: flipDuration
         }
 
     }
@@ -40,119 +31,108 @@ export default class Card extends Component {
 
         return (
 
-        <Transition in={this.props.faceUp} timeout={200}>
+        <Transition in={this.state.currentFlips % 2 === 0} timeout={this.state.flipDuration * 500}>
 
             {transitionState => {
 
-                console.log(transitionState)
+                const starting = transitionState === "exiting" || transitionState === "entering"
 
-                const transitionShift = transitionState === "entering" || transitionState === "exiting" ? 12 : 0
+                const flipAnimation = 'cubic-bezier(0.21, 0, 0.26, 0.68)'
+
+                const zShift = starting ? 7 : 0
+
+                const yShift = starting ? 9 * (this.state.currentFlips - this.state.previousFlips) : 0
+
+                const awayAnimation = 'cubic-bezier(0.23, 0.71, 0.49, 0.78)'
+
+                const returnAnimation = 'cubic-bezier(0.7, 0.3, 0.7, 0.3)'
+
+                const translateAnimation = starting ? awayAnimation : returnAnimation
 
                 return (
-
                     <CardBase
+                        className={this.props.className}
                         onClick={this.props.clickHandler}
-                        x={this.props.x} 
-                        y={this.props.y}
-                        rotation={this.props.rotation}
-                        shiftX={this.props.shiftX}
-                        shiftY={this.props.shiftY}
                     >
-                        <CardContents
-                            angle={this.determineAngle(this.props.faceUp, this.props.x, this.props.rotation)}
-                            z={this.props.z + transitionShift}
+                        <CardTranslate
+                            y={yShift}
+                            z={zShift + 1}
+                            translateDuration={this.state.flipDuration/2}
+                            translateAnimation={translateAnimation}
                         >
-                            <Face suit={this.props.suit} rank={this.props.rank} className="front"/>
-                            <Back className="back"/>
-                        </CardContents>
+                            <CardFlip
+                                angle={this.state.currentFlips * 180}
+                                flipDuration={this.state.flipDuration}
+                                flipAnimation={flipAnimation}
+                            >
+                                <FlippableCardFace suit={this.props.suit} rank={this.props.rank} />
+                                <FlippableCardBack />
+                            </CardFlip>
+                        </CardTranslate>
                     </CardBase>
                 )
 
             }}
 
-        
-
-        </Transition>
-
-        )
+        </Transition>)
     }
 }
 
 Card.defaultProps = {
-    x: 0,
-    y: 0,
-    z: 1,
-    rotation: 0,
-    faceUp: false,
-    shiftX: 0,
-    shiftY: 0
+    flipVelocity: 0.5,
+    flips: 0,
 }
 
-const CardBase = styled.div`
+const CardBase = styled(CardFrame)`
 
     transform-style: preserve-3d;
 
-    position: absolute;
-    top: 50%;
-    left: 50%;
+`
 
-    width: 10vh;
-    height: 14vh;
+const CardTranslate = styled(CardFrame)`
 
-    transform:
-        translate(-50%, -50%)
-        translate(${props => props.x}vh,${props => props.y}vh)  
-        rotate(${props => props.rotation}deg)
-        translate(${props => props.shiftX}vh, ${props => props.shiftY}vh)
-    ;
-    
-    transition: transform 0.4s linear;
+    transform-style: preserve-3d;
 
-    perspective: 800px;
+    transform: translateY(${props => props.y}vh)  translateZ(${props => props.z}vh);
 
-    background-color: transparent;
+    transition: transform ${props => props.translateDuration}s ${props=> props.translateAnimation};
+
 
 `
 
-
-const CardContents = styled.div`
+const CardFlip = styled(CardFrame)`
 
     position: relative;
 
-    height: 100%;
-    width: 100%;
-
     transform-style: preserve-3d;
 
-    transform: translateZ(${props => props.z + 2}vh) rotateX(${props => props.angle}deg);
-    transition: transform 0.4s linear;
+    transform: rotateX(${props => props.angle}deg);
 
-    box-shadow: 0 0 2px #555;
+    transition: transform ${props => props.flipDuration}s ${props => props.flipAnimation};
 
-    border-radius: 0.6vh;
+    box-shadow: 0 0 0.05vh black;
+
+
+`
+
+const flippableStyle = css`
+
+    transform-style: preserve-3d;
+    position: absolute;
+    backface-visibility: hidden;
     
 `
 
-const Face = styled(CardFace)`
+const FlippableCardFace = styled(CardFace)`
 
-    position: absolute;
+    ${flippableStyle}
 
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-
-`
-
-const Back = styled(CardBack)`
-
-    position: absolute;
-
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
+    transform: rotateX(180deg);
 
 `
 
+const FlippableCardBack = styled(CardBack)`
 
+    ${flippableStyle}
 
-
-
-
+`

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import styled from 'styled-components'
 
-import { CardSide } from '../styles/components'
+import { CardFrame } from '../styles/components'
 
 export default class CardBack extends Component {
     render() {
@@ -19,16 +19,13 @@ export default class CardBack extends Component {
     }
 }
 
-const Container = styled(CardSide)`
+const Container = styled(CardFrame)`
 
     background: #E1EAEF;
 
     display: flex;
     justify-content: center;
     align-items: center;
-
-    transform: rotateX(180deg);
-
 
 `
 
@@ -52,9 +49,9 @@ const Circle = styled.div`
 
     width: 6vh;
     height: 6vh;
+    border-radius: 50%;
 
     background: #E1EAEF;
-    border-radius: 50%;
 
     display: flex;
     justify-content: center;
@@ -71,7 +68,7 @@ const Dash = styled.div`
 
     margin: 0 0.3vh;
 
-    transform: skew(-10deg, 0);
+    transform: skew(-15deg, 0);
 
 `
 
