@@ -7,7 +7,7 @@ export default class DisplayCard extends Component {
         return (
             <Container x={this.props.x} y={this.props.y}>
                 <Name>Name</Name>
-                
+                <Row>
                 {this.props.buttons.map((b, idx) => (
                     <ButtonFrame key={idx}>
                         <Button onClick={b.clickHandler}>
@@ -15,7 +15,7 @@ export default class DisplayCard extends Component {
                         </Button>
                     </ButtonFrame>
                 ))}
-                
+                </Row>
             </Container>
         )
     }
@@ -58,11 +58,20 @@ const Name = styled.h4`
 
 `
 
+const Row = styled.div`
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+`
+
 const ButtonFrame = styled.div`
 
     transform-style: preserve-3d;
 
     border-radius: 1vh;
+    margin: 0 0.4vh;
     padding: 0 0.1vh;
 
     background: black;

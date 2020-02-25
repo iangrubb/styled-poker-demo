@@ -8,6 +8,7 @@ export const CardFrame = styled.div`
 
     width: 10vh;
     height: 14vh;
+    
 
 `
 

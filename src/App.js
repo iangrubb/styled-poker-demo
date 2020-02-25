@@ -13,6 +13,7 @@ const suits = ["heart", "diamond", "spade", "club"]
 
 const deck = suits.flatMap( s => ranks.map( r => {return { suit: s, rank: r }} ))
 
+const shuffle = array => array.sort(() => Math.random() - 0.5 )
 
 export default class App extends Component {
   
@@ -25,7 +26,7 @@ export default class App extends Component {
 
         {/* <FlippableCardView /> */}
         
-        <GameView cards={deck} playerCount={6} />
+        <GameView cards={shuffle(deck)} playerCount={6} />
 
       </Container>
     )

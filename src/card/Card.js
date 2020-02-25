@@ -9,6 +9,7 @@ import CardBack from './CardBack'
 import CardFace from './CardFace'
 
 
+
 export default class Card extends Component {
 
     // Need to know the distance change to calculate rotation speed.
@@ -41,7 +42,7 @@ export default class Card extends Component {
 
                 const zShift = starting ? 7 : 0
 
-                const yShift = starting ? 9 * (this.state.currentFlips - this.state.previousFlips) : 0
+                const yShift = starting ? this.props.pullBack * (this.state.currentFlips - this.state.previousFlips) : 0
 
                 const awayAnimation = 'cubic-bezier(0.23, 0.71, 0.49, 0.78)'
 
@@ -79,8 +80,9 @@ export default class Card extends Component {
 }
 
 Card.defaultProps = {
-    flipVelocity: 0.5,
+    flipVelocity: 0.4,
     flips: 0,
+    pullBack: 8
 }
 
 const CardBase = styled(CardFrame)`

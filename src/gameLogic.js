@@ -1,9 +1,5 @@
 
-
 export const playerAngle = (position, total) => ((2 * position * Math.PI) / (total + 1)) + (Math.PI / 2)
-
-
-const shuffle = array => array.sort(() => Math.random() - 0.5 )
 
 
 const correctedRotation = (previousRotation, targetRotation) => {
@@ -26,18 +22,15 @@ const correctedRotation = (previousRotation, targetRotation) => {
 }
 
 
-const updateCardData = component => (id, update) => {
+const updateCardData = component => (ids, updates) => {
 
-    const found = component.state.cardData[id]
+    const oldCards = component.state.cardData
 
-    const before = component.state.cardData.filter( (c, idx) => idx < id )
+    const newCards = oldCards.map( (c, idx) => ids.includes(idx) ? {...c, ...updates[ids.indexOf(idx)]} : c )
 
-    const after = component.state.cardData.filter( (c, idx) => idx > id )
-
-    component.setState({cardData: [...before, {...found, ...update}, ...after]})
+    component.setState({cardData: newCards})
 
 }
-
 
 
 // Remove items from game state
@@ -58,76 +51,133 @@ const getHand = component => playerId => {
 
 // Add items to game state
 
-const addToHand = component => (cardId, playerId, turn) => {
+const addCardsToHand = component => (cardIds, playerId, turn, replaceCount) => {
 
-    console.log(this)
+    const players = component.state.hands.length
 
+    const updates = cardIds.map( (cardId, idx) => {
 
-    // // Corrected Rotation
+        const currentCard = component.state.cardData[cardId]
 
-    // const targetRotation = ((playerAngle(playerId) * (180 / Math.PI)) + 90) % 180
+        // Corrected Rotation
 
-    // const previousRotation = component.state.cardData[cardId].rotation
+        const targetRotation = ((playerAngle(playerId + 1, players) * (180 / Math.PI)) + 90) % 180
 
-    // const rotation = correctedRotation(previousRotation, targetRotation)
+        const previousRotation = currentCard.rotation
 
-
-    // // Base table position
-
-    // const x = 34 * Math.cos(playerAngle(playerId))
-
-    // const y = 32 * Math.sin(playerAngle(playerId))
-
-    // const z = component.state.hands[playerId].length / 4
+        const rotation = correctedRotation(previousRotation, targetRotation)
 
 
-    // // Card orientation check
+        // Base table location
 
 
-    // // Flips calculation
+        const x = 34 * Math.cos(playerAngle(playerId + 1, players))
+
+        const y = 32 * Math.sin(playerAngle(playerId + 1, players))
 
 
-    // // Shift calculation
+        // Card orientation check
 
-    // const inverted = rotation < 0
+        const leftFacing = Math.floor( rotation / 180 ) % 2 === 0
 
-    // const leftSide = x < 0
+        const leftSide = x < 0
 
-    // const normal = (inverted && leftSide) || (!inverted && !leftSide)
-
-
+        const invert = ( leftFacing && leftSide ) || ( !leftFacing && !leftSide )
 
 
-    // // Check number of flips for this
+        // Flips calculation
 
-    // const shiftX = turn ?
-    //     (2 * (normal ? -1 : 1) ) - (this.state.hands[playerId].length * (inverted ? -1 : 1) * (leftSide ? 1 : -1) * 2) :
-    //     this.state.hands[playerId].length * (inverted ? -1 : 1) * (leftSide ? 1 : -1) * 2
-        
+        const currentFlips = currentCard.flips
 
-
-    // const shiftY = turn ?
-    //     (this.state.hands[playerId].length * (inverted ? -1 : 1) * (leftSide ? 1 : -1) * 2) + 6 * (normal ? 1 : -1) :
-    //     this.state.hands[playerId].length * (inverted ? -1 : 1) * (leftSide ? 1 : -1) * 2
-        
+        const flips = turn ? ( currentFlips + (invert ? 1 : -1) ) : currentFlips
 
 
-    // const flips = 0
+        // Stack height
+
+        const faceDown = flips % 2 === 0
+
+        const oldCardCount = component.state.hands[playerId].length
+
+        const stackIndex = oldCardCount - replaceCount + idx
+
+        const stackHeight = oldCardCount - replaceCount + cardIds.length
+
+        const newCardCount = cardIds.length
+
+        const z = stackIndex * 2
 
 
-    // const update = { x, y, z, rotation, flips, shiftX, shiftY }
+        // Shift calculation
 
-    // this.setState({hands: this.state.hands.map((h, idx) => idx === playerId ? [...this.state.hands[idx], cardId] : h)})
+        const shiftX = 2 * (invert ? 1 : -1) * (faceDown ? stackIndex : stackHeight - stackIndex - 1 )
 
-    // this.updateCard(cardId, update)
+        const shiftY = 3 * (invert ? 1 : -1) * (faceDown ? stackIndex : - 1 - (stackHeight - stackIndex - 1))
+
+        // Pull Back calculation
+
+        const pullBack = faceDown ? 0 : (idx * 3) + 4
+
+        return { x, y, z, rotation, flips, shiftX, shiftY, pullBack }
+
+    })
+
+    component.setState({hands: component.state.hands.map((h, idx) => idx === playerId ? [...component.state.hands[idx], ...cardIds] : h)})
+
+    updateCardData(component)(cardIds, updates)
+
 }
 
+const addCardsToDiscard = component => cardIds => {
 
+    const updates = cardIds.map( (cardId, idx) => {
 
+        const x = 0
 
+        const y = 20
 
+        const z = component.state.discard.length + idx + 1
 
+        const targetRotation = 90
 
+        const rotation = correctedRotation(component.state.cardData[cardId].rotation, targetRotation)
+
+        const shiftX = 0
+
+        const shiftY = 0
+
+        return { x, y, z, rotation, shiftX, shiftY }
+
+    })
+
+    component.setState({discard: [...component.state.discard, ...cardIds]})
+
+    updateCardData(component)(cardIds, updates)
+
+}
+
+const addCardToTable = component => cardId => {
+
+    const x = -10
+
+    const y = 0
+
+    const z = component.state.table.length
+
+    const flips = 1
+
+    const shiftX = z * 5
+
+    const shiftY = z * 1.2
+
+    const rotation = 0
+
+    const update = { x, y, z, rotation, flips, shiftX, shiftY }
+
+    component.setState({table: [...component.state.table, cardId]})
+
+    updateCardData(component)([cardId], [update])
+
+}
 
 
 
@@ -136,23 +186,48 @@ const addToHand = component => (cardId, playerId, turn) => {
 // Exposed Functions
 
 const dealToPlayer = component => playerId => () => {
-
     const cardId = getDeckTop(component)
+    addCardsToHand(component)([cardId], playerId, false, 0)
+    component.setState({nextPlayer: (component.state.nextPlayer + 1) % component.props.playerCount})
+}
 
-    addToHand(component)(cardId, playerId, true)
+const burnCard = component => () => {
+    const cardId = getDeckTop(component)
+    addCardsToDiscard(component)([cardId])
+}
 
+const showCard = component => () => {
+    const cardId = getDeckTop(component)
+    addCardToTable(component)(cardId)
+}
+
+const discardHand = component => playerId => () => {
+
+    const hand = getHand(component)(playerId)
+
+    addCardsToDiscard(component)(hand)
+    
+}
+
+const revealHand = component => playerId => () => {
+
+    const hand = getHand(component)(playerId).reverse()
+
+    addCardsToHand(component)(hand, playerId, true, hand.length)
+    
 }
 
 
 export const playerActions = component => id => ([
-
-    {text: "Deal", clickHandler: dealToPlayer(component)(id)}
+    {text: "Reveal", clickHandler: revealHand(component)(id)},
+    {text: "Fold", clickHandler: discardHand(component)(id)}
 
 ])
 
 
 export const dealerActions = component => ([
-
-    {text: "dealer test", clickHandler: () => console.log(component)}
+    {text: "Deal", clickHandler: dealToPlayer(component)(component.state.nextPlayer)},
+    {text: "Show", clickHandler: showCard(component)},
+    {text: "Burn", clickHandler: burnCard(component)}
 
 ])
