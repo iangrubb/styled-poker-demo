@@ -15,7 +15,7 @@ export default class FlippableCardView extends Component {
         return (
             <Container>
                 <Surface onClick={this.flip}>
-                    <Card suit="heart" rank="5" flips={this.state.flips} />
+                    <Card {...this.props.card} flips={this.state.flips} />
                 </Surface>
             </Container>
         )
@@ -23,8 +23,6 @@ export default class FlippableCardView extends Component {
 }
 
 const Container = styled.div`
-
-    background: #ccc;
 
     width: 100%;
     height: 100%;
@@ -38,19 +36,23 @@ const Container = styled.div`
 
 const Surface = styled.div`
 
-    background: #888;
+    background: linear-gradient(20deg, rgba(219, 112, 147, 0.7), rgba(218, 163, 87, 0.7));
 
-    transform: perspective(600px) rotateX(60deg) rotate(-30deg);
+    transform: scale(2) perspective(600px) rotateX(60deg) rotate(-30deg);
     transform-style: preserve-3d;
 
     width: 30vh;
     height: 30vh;
 
     border-radius: 50%;
+    
+    border: solid 0.8vh rgb(219, 112, 147, 0.4);
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    cursor: pointer;
 
 `
 

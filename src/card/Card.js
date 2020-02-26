@@ -112,7 +112,7 @@ const CardFlip = styled(CardFrame)`
 
     transition: transform ${props => props.flipDuration}s ${props => props.flipAnimation};
 
-    box-shadow: 0 0 0.05vh black;
+    box-shadow: 0 0 0.05vh #261F2688;
 
 
 `

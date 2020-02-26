@@ -10,7 +10,7 @@ export default class CardDeckView extends Component {
     render() {
         return (
             <Container>
-                <CardBack />
+                <Row fit><CardBack /></Row>
                 <Row>{this.props.cards.filter(c=>c.suit === "heart").map(c => <CardFace position="static" key={c.id} {...c} />)}</Row>
                 <Row>{this.props.cards.filter(c=>c.suit === "spade").map(c => <CardFace position="static" key={c.id} {...c} />)}</Row>
                 <Row>{this.props.cards.filter(c=>c.suit === "diamond").map(c => <CardFace position="static" key={c.id} {...c} />)}</Row>
@@ -21,8 +21,6 @@ export default class CardDeckView extends Component {
 }
 
 const Container = styled.div`
-
-    background: #ccc;
 
     width: 100%;
     height: 100%;
@@ -36,13 +34,21 @@ const Container = styled.div`
 
 const Row = styled.div`
 
-    margin: 2vh 0;
-    width: 96%;
+
+    width: ${props => props.fit ? '8%' : '90%'};
+
+    margin: 1vh 0;
+    padding: 1vh;
+
+    background: linear-gradient(20deg, rgba(219, 112, 147, 0.7), rgba(218, 163, 87, 0.7));
+
+    border-radius: 1vh;
 
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
+
+    border: solid 0.8vh rgb(219, 112, 147, 0.4);
 
 `
 

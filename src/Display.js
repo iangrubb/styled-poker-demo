@@ -6,15 +6,15 @@ export default class DisplayCard extends Component {
     render() {
         return (
             <Container x={this.props.x} y={this.props.y}>
-                <Name>Name</Name>
+                <Name>{this.props.name}</Name>
                 <Row>
-                {this.props.buttons.map((b, idx) => (
+                    {this.props.buttons.map((b, idx) => (
                     <ButtonFrame key={idx}>
                         <Button onClick={b.clickHandler}>
                             {b.text}
                         </Button>
-                    </ButtonFrame>
-                ))}
+                    </ButtonFrame>   
+                    ))}
                 </Row>
             </Container>
         )
@@ -24,11 +24,11 @@ export default class DisplayCard extends Component {
 
 const Container = styled.div`
 
-    background: #99999966;
+    background: #ffffff88;
 
     padding: 1vh 4vh;
 
-    border: solid #444444cc 1vh;
+    border: solid #DB7093aa 1vh;
 
     border-radius: 1vh;
 
@@ -38,13 +38,14 @@ const Container = styled.div`
 
     transform:
         translate(-50%, -50%)
-        translateZ(12vh)
+        translateZ(10vh)
         translateX(${props => props.x}vh)
         translateY(${props => props.y}vh)
-        rotateX(-60deg)
+        rotateX(-50deg)
     ;
 
     transform-style: preserve-3d;
+
 
     display: flex;
     flex-direction: column;
@@ -54,49 +55,79 @@ const Container = styled.div`
 
 const Name = styled.h4`
 
-    margin: 2px;
+    margin: 0;
+
+    font-family: "Open Sans";
+    font-style: italic;
+    color: #DB7093;
 
 `
 
 const Row = styled.div`
 
     display: flex;
-    justify-content: center;
     align-items: center;
+
+    margin: 0.8vh 0 0.4vh 0;
 
 `
 
 const ButtonFrame = styled.div`
 
-    transform-style: preserve-3d;
+    background: linear-gradient(20deg, rgb(219, 112, 147), rgb(218, 163, 87));
 
-    border-radius: 1vh;
     margin: 0 0.4vh;
-    padding: 0 0.1vh;
 
-    background: black;
+    border-radius: 2vh;
+
+    width: 8vh;
+    height: 3vh;
+
+    padding: 0.1vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
 
 `
 
 const Button = styled.button`
 
-    background: #444444;
-    color: white;
-    border: 0.2vh solid black;
-    border-radius: 1vh;
+    background: #ffffffaa;
+    color: #DB7093;
 
-    transform: translateZ(0.6vh) rotateX(2deg);
+    
+    font-family: "Open Sans";
+    font-size: 1.4vh;
+    font-weight: 700;
 
-    transition: transform 0.1s;
+    width: 100%;
+    height: 100%;
+
+    border: 0.2vh solid #DB7093;
+
+    border-radius: 2vh;
 
     cursor: pointer;
 
+    transform: translateZ(0.3vh);
+
+    transition: transform 0.1s ease;
+
+    transition-style: preserve-3d;
+
+
     &:active {
-        transform: translateZ(0.2vh) rotateX(2deg);
+        transform: translateZ(0vh);
     }
 
     &:focus {
-        outline: none;
+        outline: 1px solid #11111100;
+        font-weight: 700;
+        background: #ffffffee;
     }
+
 
 `

@@ -21,7 +21,7 @@ export default class CardBack extends Component {
 
 const Container = styled(CardFrame)`
 
-    background: #E1EAEF;
+    background: white;
 
     display: flex;
     justify-content: center;
@@ -31,7 +31,7 @@ const Container = styled(CardFrame)`
 
 const Interior = styled.div`
 
-    background: rgb(78, 177, 225);
+    background: #7EC6EA;
 
     width: 8vh;
     height: 12vh;
@@ -51,7 +51,7 @@ const Circle = styled.div`
     height: 6vh;
     border-radius: 50%;
 
-    background: #E1EAEF;
+    background: white;
 
     display: flex;
     justify-content: center;
@@ -61,7 +61,7 @@ const Circle = styled.div`
 
 const Dash = styled.div`
 
-    background: rgb(78, 177, 225);
+    background: #7EC6EA;
 
     width: 0.6vh;
     height: 4vh;

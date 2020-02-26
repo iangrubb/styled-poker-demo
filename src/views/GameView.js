@@ -45,8 +45,8 @@ export default class GameView extends Component {
 
                     {Array.from(Array(this.props.playerCount + 1),(x,i)=>i).map( n => {
 
-                        const x = 52 * Math.cos(playerAngle(n, this.props.playerCount))
-                        const y = 48 * Math.sin(playerAngle(n, this.props.playerCount))
+                        const x = 56 * Math.cos(playerAngle(n, this.props.playerCount))
+                        const y = 44 * Math.sin(playerAngle(n, this.props.playerCount)) + 2
 
                         const actions = n === 0 ? dealerActions(this) : playerActions(this)(n - 1)
 
@@ -55,18 +55,13 @@ export default class GameView extends Component {
                                 key={n}
                                 x={x} 
                                 y={y}
+                                name={n === 0 ? "Dealer" : `Player ${n}`}
                                 buttons={actions}
                             />
                         )
                     })}
     
-                    {this.state.cardData.map( (n, idx) => {
-
-                        // const coordinates = (id, deck, discard, table, hands) => 
-                        // z={} rotation={} x={} y={} shiftX={} shiftY={} flips={}
-
-                        return <MovableCard key={idx} {...n} flip-duration={0.4} />
-                    })}
+                    {this.state.cardData.map((n, idx) =><MovableCard key={idx} {...n} flip-duration={0.4} />)}
                     
                 </GameBoard>                   
             </Container>
@@ -95,7 +90,10 @@ const GameBoard = styled.div`
     grid-row: 2;
     grid-column: 2;
 
-    background: rgb(46, 98, 73);
+    background: linear-gradient(20deg, rgba(219, 112, 147, 0.7), rgba(218, 163, 87, 0.7));
+
+    border: solid 0.8vh rgb(219, 112, 147, 0.4);
+    
     border-radius: 100%;
     
     transform-style: preserve-3d;
