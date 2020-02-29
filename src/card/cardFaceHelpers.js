@@ -1,6 +1,6 @@
 
 
-export const deriveColor = suit => suit === "heart" || suit === "diamond" ? "#E0477A" : "#261F26"
+export const deriveColor = suit => suit === "heart" || suit === "diamond" ? "red" : "black"
 
 export const deriveSymbol = suit => {
     switch(suit) {

@@ -1,63 +1,126 @@
 import React, { Component } from 'react'
 
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
-export default class NavBar extends Component {
+
+// import { withRouter } from "react-router";
+
+
+
+class NavBar extends Component {
+
+
     render() {
-        return (
-            <Container>
-                <Title>Styled</Title>
-                <Icon>{'< ♧ ♤ 💅 ♡ ♢ >'}</Icon>
-                <Title>Poker</Title>
-                <StyledLink current={this.props.path === "cards"} to="/cards">Card Deck</StyledLink>
-                <StyledLink current={this.props.path === "flip"} to="/flip">Flippable Card</StyledLink>
-                <StyledLink current={this.props.path === "game"} to="/game">Poker Game</StyledLink>
-            </Container>
-        )
+
+      const { theme , changeTheme } = this.props
+
+      const path = this.props.location.pathname
+
+      return (
+          <Container>
+              <Title>Styled</Title>
+              <Icon>{'< ♧ ♤ 💅 ♡ ♢ >'}</Icon>
+              <Title>Poker</Title>
+
+              <Group>
+
+                <Heading>Demos</Heading>
+
+                <StyledLink current={path === "/cards"} to="/cards">Card Deck</StyledLink>
+                <StyledLink current={path === "/flip"} to="/flip">Flippable Card</StyledLink>
+                <StyledLink current={path === "/game"} to="/game">Poker Game</StyledLink>
+
+              </Group>
+          
+
+              <Group>
+
+                <Heading>Themes</Heading>
+
+                <ThemeButton current={theme === "styled"} onClick={changeTheme("styled")}>Styled</ThemeButton>
+                <ThemeButton current={theme === "grayscale"} onClick={changeTheme("grayscale")}>Grayscale</ThemeButton>
+                <ThemeButton current={theme === "third"} onClick={changeTheme("third")}>Third</ThemeButton>
+
+              </Group>
+          </Container>
+      )
     }
 }
 
+export default withRouter(NavBar)
 
-const StyledLink = styled(Link)`
 
-  display: ${props => props.current ? "block" : "none"};
+const Group = styled.fieldset`
 
-  color: white;
-  
-  margin: 0 1vh;
+  display: none;
 
-  text-decoration: none;
+  width: 90%;
+  align-self: center;
 
-  font-style: ${props => props.current ? "italic" : "normal"};
-  font-weight: ${props => props.current ? "700" : "400"};
+  margin: 0.4vw 0;
 
+  border: ${props => props.theme.size.border / 8}vw solid ${props => props.theme.color.lightText};
+  ${props => props.theme.borderRadius}
+
+`
+
+const Heading = styled.legend`
+
+  color: ${props => props.theme.color.lightText};
+  font-weight: 700;
+
+  margin: 0 0 0 0.2vw;
+  padding: 0 0.4vw;
+
+`
+
+
+const groupItemStyle = css`
   margin: 0 0 1vh 0;
 
-  box-shadow: 0 0.2vh 0 white;
+  width: fit-content;
+
+  box-shadow: 0 ${props => props.current ? 0.4 : 0.2}vh 0 ${props => props.theme.color.lightText};
+  color: ${props => props.theme.color.lightText};
+
+  text-decoration: none;
+  font-weight: ${props => props.current ? "700" : "400"};
+  font-style: ${props => props.current ? "normal" : "italic"};
 
   transition: all 0.2s ease;
 
   &:hover {
-    box-shadow: 0 0.4vh 0 white;
+    color: ${props => props.theme.color.darkText};
+    box-shadow: 0 ${props => props.current ? 0.4 : 0.2}vh ${props => props.theme.color.darkText};
   }
+`
+
+const ThemeButton = styled.a`
+
+  ${groupItemStyle}
 
 `
 
-//rgb(29, 31, 38)
+const StyledLink = styled(Link)`
+
+  ${groupItemStyle}
+
+`
+
 
 const Title = styled.div`
 
-  display: none;
-
-  font-size: 3.4vh;
   font-style: italic;
-  color: white;
+  color: ${props => props.theme.color.lightText};
 
-  margin: 0.6vh 0;
+  font-size: 2.4vh;
+  margin: 0.2vh 0;
 
   transition: all 0.2s ease;
+
+  position: relative;
 
 `
 
@@ -66,47 +129,39 @@ const Icon = styled.div`
 
   font-style: normal;
   font-weight: 700;
-  font-size: 3vh;
-  font-family: "Open Sans";
-  color: white;
+  font-size: 2.4vh;
+  ${props => props.theme.font.text}
+  color: ${props => props.theme.color.lightText};
 
-  border-radius: 1vh;
-
-
-
+  ${props => props.theme.borderRadius}
 
 `
 
 const Container = styled.div`
 
-
-
   position: absolute;
 
-  
-
-  font-family: 'Space Mono';
+  ${props => props.theme.font.display}
 
   top: 0;
   left: 8vh;
 
   z-index: 2;
 
-  background: linear-gradient(20deg, rgb(219, 112, 147), rgb(218, 163, 87));
+  background: linear-gradient(20deg, ${props => props.theme.color.darkGradient}, ${props => props.theme.color.lightGradient});
 
   padding: 1vh 2vh;
 
-  border: solid rgb(219, 112, 147) 1vh;
+  border: ${props => props.theme.size.border}vw solid ${props => props.theme.color.darkUi};
 
-
-  border-radius: 1vh;
+  ${props => props.theme.borderRadius}
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  overflow: hidden;
+  overflow: none;
 
   transition: all 0.2s ease;
 
@@ -114,16 +169,24 @@ const Container = styled.div`
   width: 24vh;
 
   &:hover {
-    height: 30vh;
+    height: 54vh;
   }
 
-  &:hover ${StyledLink} {
-    display: block;
+  &:hover ${Group} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &:hover ${Icon} {
+    font-size: 2.8vh;
   }
 
   &:hover ${Title} {
-    display: block;
+    font-size: 3.4vh;
+    margin: 0 0 0.4vh 0;
   }
+
 
 `
 

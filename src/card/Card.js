@@ -40,7 +40,7 @@ export default class Card extends Component {
 
                 const flipAnimation = 'cubic-bezier(0.21, 0, 0.26, 0.68)'
 
-                const zShift = starting ? 7 : 0
+                const zShift = starting ? 5 : 1
 
                 const yShift = starting ? this.props.pullBack * (this.state.currentFlips - this.state.previousFlips) : 0
 
@@ -57,7 +57,7 @@ export default class Card extends Component {
                     >
                         <CardTranslate
                             y={yShift}
-                            z={zShift + 1}
+                            z={zShift}
                             translateDuration={this.state.flipDuration/2}
                             translateAnimation={translateAnimation}
                         >
@@ -72,7 +72,6 @@ export default class Card extends Component {
                         </CardTranslate>
                     </CardBase>
                 )
-
             }}
 
         </Transition>)
@@ -82,7 +81,7 @@ export default class Card extends Component {
 Card.defaultProps = {
     flipVelocity: 0.4,
     flips: 0,
-    pullBack: 8
+    pullBack: 6
 }
 
 const CardBase = styled(CardFrame)`
@@ -95,7 +94,7 @@ const CardTranslate = styled(CardFrame)`
 
     transform-style: preserve-3d;
 
-    transform: translateY(${props => props.y}vh)  translateZ(${props => props.z}vh);
+    transform: translateY(${props => props.y}vw)  translateZ(${props => props.z}vw);
 
     transition: transform ${props => props.translateDuration}s ${props=> props.translateAnimation};
 
@@ -108,12 +107,11 @@ const CardFlip = styled(CardFrame)`
 
     transform-style: preserve-3d;
 
-    transform: rotateX(${props => props.angle}deg);
+    transform: rotateX(${props => props.angle }deg);
 
     transition: transform ${props => props.flipDuration}s ${props => props.flipAnimation};
 
-    box-shadow: 0 0 0.05vh #261F2688;
-
+    box-shadow: 0 0 0.05vw #11111188;
 
 `
 

@@ -38,11 +38,11 @@ export default class CardFace extends Component {
         }
     }
 
-    renderAceCard = () => <Ace color={this.color}>{this.symbol}</Ace>
+    renderAceCard = () => <Circle color={this.color}><Ace>{this.symbol}</Ace></Circle>
 
     renderFaceCard = () => (
         <>
-            <BigLetter column={1} row={1} color={this.color}>
+            <BigLetter column={2} row={2} color={this.color}>
                 {this.props.rank}
             </BigLetter>
             <BigSuit color={this.color} row={10} column={2}>
@@ -51,7 +51,7 @@ export default class CardFace extends Component {
             <BigSuit color={this.color} row={6} column={4} invert={true}>
                 {this.symbol}
             </BigSuit>
-            <BigLetter column={3} row={10} color={this.color} invert={true}>{this.props.rank}</BigLetter>
+            <BigLetter column={4} row={11} color={this.color} invert={true}>{this.props.rank}</BigLetter>
         </>
     )
 
@@ -112,7 +112,7 @@ export default class CardFace extends Component {
 
 const Container = styled(CardFrame)`
 
-    background: white;
+    background: ${props => props.theme.color.cardWhite};
 
     display: grid;
     grid-template-rows: 1fr repeat(13, 4.5%) 1fr;
@@ -125,54 +125,63 @@ const Symbol = styled.div`
     grid-row: ${props => props.row};
     grid-column: ${props => props.column};
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-self: center;
+    align-self: center;
 
     transform: rotate(${props => props.invert ? '180deg' : '0'});
 
-    color: ${props => props.color};
+    color: ${props => props.color === "red" ? props.theme.color.cardRed : props.theme.color.cardBlack };
 
 `
 
 const BigSuit = styled(Symbol)`
 
-    font-size: 2vh;
-
+    font-size: 1.4vw;
 
 `
 
 const SmallSuit = styled(Symbol)`
 
-    font-size: 1vh;
+    font-size: 0.6vw;
     
 `
 
 const Rank = styled(Symbol)`
 
-    font-size: 1.6vh;
+    font-size: 1vw;
+
+`
+
+const Circle = styled(Symbol)`
+
+    grid-row: 4/13;
+    grid-column: 2/5;
+
+    justify-self: stretch;
+    align-self: stretch;
+    text-align: center;
+
+    background: ${props => props.color === "red" ? props.theme.color.cardRed : props.theme.color.cardBlack };
+
+    border-radius: 50%;
+
+    ${props => props.theme.centerChild}
 
 `
 
 const Ace = styled(Symbol)`
 
-    grid-row: 4/13;
-    grid-column: 2/5;
+    color: ${props => props.theme.color.cardWhite};
 
-    background: ${props => props.color};
-    color: white;
-
-    font-size: 4vh;
-
-    border-radius: 50%;
+    font-size: 2.4vw;
 
 `
 
 const BigLetter = styled(Symbol)`
 
-    grid-column: ${props => props.column + 1};
-    grid-row: ${props => `${props.row + 1}/${props.row + 5}`}; 
+    grid-column: ${props => props.column};
+    grid-row: ${props => `${props.row}/${props.row + 4}`}; 
 
-    font-size: 4vh;
+    font-size: 2.4vw;
 
 `

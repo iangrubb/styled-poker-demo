@@ -4,11 +4,10 @@ import styled from 'styled-components'
 
 export const CardFrame = styled.div`
 
-    border-radius: 0.6vh;
+    border-radius: 0.4vw;
 
-    width: 10vh;
-    height: 14vh;
-    
+    width: 6.5vw;
+    height: 9vw;
 
 `
 

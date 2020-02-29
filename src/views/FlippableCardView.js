@@ -27,30 +27,25 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+    ${props => props.theme.centerChild}
 
 `
 
 const Surface = styled.div`
 
-    background: linear-gradient(20deg, rgba(219, 112, 147, 0.7), rgba(218, 163, 87, 0.7));
+    background: linear-gradient(20deg, ${props => props.theme.color.darkGradient}aa, ${props => props.theme.color.lightGradient}aa);
 
-    transform: scale(2) perspective(600px) rotateX(60deg) rotate(-30deg);
+    transform: scale(2) perspective(600px) rotateX(60deg) rotate(30deg);
     transform-style: preserve-3d;
 
-    width: 30vh;
-    height: 30vh;
+    width: 20vw;
+    height: 20vw;
 
     border-radius: 50%;
     
-    border: solid 0.8vh rgb(219, 112, 147, 0.4);
+    border: ${props => props.theme.size.border / 2}vw solid ${props => props.theme.color.darkUi};
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${props => props.theme.centerChild}
 
     cursor: pointer;
 

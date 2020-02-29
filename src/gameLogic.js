@@ -73,7 +73,7 @@ const addCardsToHand = component => (cardIds, playerId, turn, replaceCount) => {
 
         const x = 34 * Math.cos(playerAngle(playerId + 1, players))
 
-        const y = 32 * Math.sin(playerAngle(playerId + 1, players))
+        const y = 33 * Math.sin(playerAngle(playerId + 1, players))
 
 
         // Card orientation check
@@ -109,9 +109,9 @@ const addCardsToHand = component => (cardIds, playerId, turn, replaceCount) => {
 
         // Shift calculation
 
-        const shiftX = 2 * (invert ? 1 : -1) * (faceDown ? stackIndex : stackHeight - stackIndex - 1 )
+        const shiftX = 1 * (invert ? 1 : -1) * (faceDown ? stackIndex : stackHeight - stackIndex - 1 )
 
-        const shiftY = 3 * (invert ? 1 : -1) * (faceDown ? stackIndex : - 1 - (stackHeight - stackIndex - 1))
+        const shiftY = 1.4 * (invert ? 1 : -1) * (faceDown ? stackIndex : - 1 - (stackHeight - stackIndex - 1))
 
         // Pull Back calculation
 
@@ -159,15 +159,15 @@ const addCardToTable = component => cardId => {
 
     const x = -10
 
-    const y = 0
+    const y = -2
 
     const z = component.state.table.length
 
     const flips = 1
 
-    const shiftX = z * 5
+    const shiftX = z * 2.2
 
-    const shiftY = z * 1.2
+    const shiftY = z * 0.8
 
     const rotation = 0
 

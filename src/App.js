@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
+
+import * as themes from './styles/themes'
 
 import {
-  BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom"
@@ -25,39 +26,64 @@ const unshuffledDeck = [...deck]
 
 const shuffle = array => array.sort(() => Math.random() - 0.5 )
 
+
 export default class App extends Component {
+
+  state = {
+    theme: "styled"
+  }
   
+  determineTheme = theme => {
+
+    switch(theme) {
+      case "styled":
+        return themes.styledTheme
+      case "grayscale":
+        return themes.grayscaleTheme
+      case "third":
+        return themes.thirdTheme
+      default:
+        return {}
+    }
+
+  }
+
+  changeTheme = theme => () => this.setState({ theme })
+
   render (){
 
     return (
-      <Router>
-        <Container >
-          <Icon top left >♠</Icon>
-          <Icon top >♣</Icon>
-          <Icon left >♥</Icon>
-          <Icon >♦</Icon>
-          <Contents>
-            <Switch>
-              <Route exact path="/cards">
-                <NavBar path="cards" />
-                <CardDeckView cards={unshuffledDeck} />
-              </Route>
-              <Route exact path="/flip">
-                <NavBar path="flip"/>
-                <FlippableCardView card={shuffle(deck)[0]}/>
-              </Route>
-              <Route exact path="/game">
-                <NavBar path="game"/>
-                <GameView cards={shuffle(deck)} playerCount={6} />
-              </Route>
+    <ThemeProvider theme={{...this.determineTheme(this.state.theme), ...themes.genericTheming}}>
+      <Container>
+        <Icon top left >♠</Icon>
+        <Icon top >♣</Icon>
+        <Icon left >♥</Icon>
+        <Icon >♦</Icon>
+
+        <NavBar changeTheme={this.changeTheme} theme={this.state.theme}/>
+
+        <Contents>
+          <Switch>
+
+            <Route exact path="/cards">
+              <CardDeckView cards={unshuffledDeck} />
+            </Route>
+
+            <Route exact path="/flip">
+              <FlippableCardView card={shuffle(deck)[0]}/>
+            </Route>
+
+            <Route exact path="/game">
+              <GameView cards={shuffle(deck)} playerCount={6} />
+            </Route>
+
             </Switch>
           </Contents>
         </Container>
-      </Router>
+      </ThemeProvider>
     )
   }
 }
-
 
 
 const Container = styled.div`
@@ -65,49 +91,46 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
 
-  background: #DB7093;
+  background: ${props => props.theme.color.darkUi};
 
-  font-family: 'Open Sans', sans-serif;
+  ${props => props.theme.font.text}
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${props => props.theme.centerChild}
 
 `
 
 const Contents = styled.div`
 
-  background: #fff2ec;
+  background: ${props => props.theme.color.lightUi};
 
-  border-radius: 1vh;
+  width: calc(100% - ${props => props.theme.size.border * 2}vw);
+  height: calc(100% - ${props => props.theme.size.border * 2}vw);
 
-  width: calc(100% - 2vh);
-  height: calc(100% - 2vh);
+  overflow: scroll;
 
 `
-
-const squareSize = 4
+const squareSize = 2.8
 
 const Icon = styled.div`
 
   position: absolute;
 
-  top: ${props => props.top ? '0vh' : `calc(100vh - ${squareSize}vh)` };
-  left: ${props => props.left ? '0vh' : `calc(100vw - ${squareSize}vh)`};
+  top: ${props => props.top ? '0vw' : `calc(100vh - ${squareSize}vw)` };
+  left: ${props => props.left ? '0vw' : `calc(100vw - ${squareSize}vw)`};
 
-  width: ${squareSize}vh;
-  height: ${squareSize}vh;
+  width: ${squareSize}vw;
+  height: ${squareSize}vw;
 
-  border-radius: 1vh;
+  font-size: ${squareSize /2}vw;
 
-  background: #DB7093;
+  ${props => props.theme.borderRadius}
 
-  color: white;
+  background: ${props => props.theme.color.darkUi};
+
+  color: ${props => props.theme.color.lightText};
   font-weight: 700;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${props => props.theme.centerChild}
 
 `
 

@@ -45,8 +45,8 @@ export default class GameView extends Component {
 
                     {Array.from(Array(this.props.playerCount + 1),(x,i)=>i).map( n => {
 
-                        const x = 56 * Math.cos(playerAngle(n, this.props.playerCount))
-                        const y = 44 * Math.sin(playerAngle(n, this.props.playerCount)) + 2
+                        const x = 42 * Math.cos(playerAngle(n, this.props.playerCount))
+                        const y = 38 * Math.sin(playerAngle(n, this.props.playerCount)) + 10
 
                         const actions = n === 0 ? dealerActions(this) : playerActions(this)(n - 1)
 
@@ -75,11 +75,9 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
 
-    display: grid;
+    ${props => props.theme.centerChild}
 
-    grid-template-rows: 1fr 96vh 1fr;
-    grid-template-columns: 1fr 96vh 1fr;
-    
+    overflow: hidden;
 
 `
 
@@ -87,18 +85,18 @@ const GameBoard = styled.div`
 
     position: relative;
 
-    grid-row: 2;
-    grid-column: 2;
+    width: 98vh;
+    height: 98vh;
 
-    background: linear-gradient(20deg, rgba(219, 112, 147, 0.7), rgba(218, 163, 87, 0.7));
+    background: linear-gradient(20deg, ${props => props.theme.color.darkGradient}aa, ${props => props.theme.color.lightGradient}aa);
 
-    border: solid 0.8vh rgb(219, 112, 147, 0.4);
+    border: ${props => props.theme.size.border / 2}vw solid ${props => props.theme.color.darkUi};
     
     border-radius: 100%;
     
     transform-style: preserve-3d;
 
-    transform: perspective(800px) translateY(-50px) rotateX(40deg);
+    transform: perspective(800px) translateY(-4vw) rotateX(35deg);
 
 `
 
@@ -115,7 +113,7 @@ const MovableCard = styled(Card)`
         translateZ(${props => props.z}px)
         translate(${props => props.x}vh,${props => props.y}vh)
         rotate(${props => props.rotation}deg)
-        translate(${props => props.shiftX}vh, ${props => props.shiftY}vh)   
+        translate(${props => props.shiftX}vw, ${props => props.shiftY}vw)   
     ;
     
     transition: transform 0.4s;

@@ -21,52 +21,45 @@ export default class CardBack extends Component {
 
 const Container = styled(CardFrame)`
 
-    background: white;
+    background: ${props => props.theme.color.cardWhite};
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${props => props.theme.centerChild}
 
 `
 
 const Interior = styled.div`
 
-    background: #7EC6EA;
+    background: ${props => props.theme.color.cardBlue};
 
-    width: 8vh;
-    height: 12vh;
+    width: 5.4vw;
+    height: 7.9vw;
 
-    border-radius: 0.6vh;
+    border-radius: 0.4vw;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+    ${props => props.theme.centerChild}
 
 `
 
 const Circle = styled.div`
 
-    width: 6vh;
-    height: 6vh;
+    width: 3.6vw;
+    height: 3.6vw;
     border-radius: 50%;
 
-    background: white;
+    background: ${props => props.theme.color.cardWhite};
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${props => props.theme.centerChild}
     
 `
 
 const Dash = styled.div`
 
-    background: #7EC6EA;
+    background: ${props => props.theme.color.cardBlue};
 
-    width: 0.6vh;
-    height: 4vh;
+    width: 0.35vw;
+    height: 2.4vw;
 
-    margin: 0 0.3vh;
+    margin: 0 0.15vw;
 
     transform: skew(-15deg, 0);
 

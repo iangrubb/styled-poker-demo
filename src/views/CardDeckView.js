@@ -10,11 +10,10 @@ export default class CardDeckView extends Component {
     render() {
         return (
             <Container>
-                <Row fit><CardBack /></Row>
-                <Row>{this.props.cards.filter(c=>c.suit === "heart").map(c => <CardFace position="static" key={c.id} {...c} />)}</Row>
-                <Row>{this.props.cards.filter(c=>c.suit === "spade").map(c => <CardFace position="static" key={c.id} {...c} />)}</Row>
-                <Row>{this.props.cards.filter(c=>c.suit === "diamond").map(c => <CardFace position="static" key={c.id} {...c} />)}</Row>
-                <Row>{this.props.cards.filter(c=>c.suit === "club").map(c => <CardFace position="static" key={c.id} {...c} />)}</Row>    
+                <CardGrid>
+                    <PositionedCardBack />
+                    {this.props.cards.map((c, idx) => <PositionedCardFace key={idx} {...c} row={Math.floor(idx / 13) + 1} column={(idx % 13) + 2} />)}
+                </CardGrid> 
             </Container>
         )
     }
@@ -22,34 +21,51 @@ export default class CardDeckView extends Component {
 
 const Container = styled.div`
 
-    width: 100%;
     height: 100%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    ${props => props.theme.centerChild}
 
 `
 
-const Row = styled.div`
+const CardGrid = styled.div`
+
+    background: linear-gradient(20deg, ${props => props.theme.color.darkGradient}aa, ${props => props.theme.color.lightGradient}aa);
+
+    margin: 4vw 0 0 0;
+    padding: 1vw;
 
 
-    width: ${props => props.fit ? '8%' : '90%'};
+    border: ${props => props.theme.size.border / 2}vw solid ${props => props.theme.color.darkUi};
+    ${props => props.theme.borderRadius}
 
-    margin: 1vh 0;
-    padding: 1vh;
+    display: grid;
+    grid-template-rows: repeat(4, fit-content);
+    grid-template-columns: repeat(14, fit-content);
 
-    background: linear-gradient(20deg, rgba(219, 112, 147, 0.7), rgba(218, 163, 87, 0.7));
-
-    border-radius: 1vh;
-
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-
-    border: solid 0.8vh rgb(219, 112, 147, 0.4);
+    grid-column-gap: 0.2vw;
+    grid-row-gap: 0.2vw;
 
 `
+
+const PositionedCardBack = styled(CardBack)`
+
+    grid-column: 1;
+    grid-row: 1;
+
+    justify-self: center;
+    align-self: center;
+
+`
+
+const PositionedCardFace = styled(CardFace)`
+
+    grid-column: ${props => props.column};
+    grid-row: ${props => props.row};
+
+    justify-self: center;
+    align-self: center;
+
+`
+
 
 

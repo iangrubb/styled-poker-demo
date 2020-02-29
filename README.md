@@ -1,6 +1,6 @@
 
 
-# A Crash Corse in Styled Components 
+# Styled Poker -- a Styled Components demo
 
 
 ## Background
@@ -17,6 +17,32 @@
 
 
 ## Demo
+
+[overview of project structure]
+
+
+### Card Backs
+
+
+### Card Faces
+
+
+### Navigation
+
+
+### ThemeProvider
+
+
+### Card Rotation
+
+
+### Card Translation in Rotation
+
+
+
+
+
+
 
 
 

@@ -9,11 +9,9 @@ export default class DisplayCard extends Component {
                 <Name>{this.props.name}</Name>
                 <Row>
                     {this.props.buttons.map((b, idx) => (
-                    <ButtonFrame key={idx}>
-                        <Button onClick={b.clickHandler}>
+                        <Button key={idx} onClick={b.clickHandler}>
                             {b.text}
                         </Button>
-                    </ButtonFrame>   
                     ))}
                 </Row>
             </Container>
@@ -24,13 +22,13 @@ export default class DisplayCard extends Component {
 
 const Container = styled.div`
 
-    background: #ffffff88;
+    background: ${props => props.theme.color.lightUi}cc;
 
-    padding: 1vh 4vh;
+    padding: 0.4vw 1vw;
 
-    border: solid #DB7093aa 1vh;
+    border: ${props => props.theme.size.border / 2}vw solid ${props => props.theme.color.darkUi};
 
-    border-radius: 1vh;
+    ${props => props.theme.borderRadius}
 
     position: absolute;
     top: 50%;
@@ -38,7 +36,7 @@ const Container = styled.div`
 
     transform:
         translate(-50%, -50%)
-        translateZ(10vh)
+        translateZ(10vw)
         translateX(${props => props.x}vh)
         translateY(${props => props.y}vh)
         rotateX(-50deg)
@@ -58,8 +56,7 @@ const Name = styled.h4`
     margin: 0;
 
     font-family: "Open Sans";
-    font-style: italic;
-    color: #DB7093;
+    color: ${props => props.theme.color.darkUi};
 
 `
 
@@ -68,65 +65,41 @@ const Row = styled.div`
     display: flex;
     align-items: center;
 
-    margin: 0.8vh 0 0.4vh 0;
-
-`
-
-const ButtonFrame = styled.div`
-
-    background: linear-gradient(20deg, rgb(219, 112, 147), rgb(218, 163, 87));
-
-    margin: 0 0.4vh;
-
-    border-radius: 2vh;
-
-    width: 8vh;
-    height: 3vh;
-
-    padding: 0.1vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-
+    margin: 0.4vw 0 0.2vw 0;
 
 `
 
 const Button = styled.button`
 
-    background: #ffffffaa;
-    color: #DB7093;
+    background: #ffffffcc;
+    color: ${props => props.theme.color.darkUi};
 
-    
     font-family: "Open Sans";
-    font-size: 1.4vh;
-    font-weight: 700;
+    font-size: 0.8vw;
 
     width: 100%;
     height: 100%;
 
-    border: 0.2vh solid #DB7093;
+    margin: 0 0.2vw;
 
-    border-radius: 2vh;
+    border: 0.15vw solid ${props => props.theme.color.darkUi};
+
+    border-radius: 1vw;
 
     cursor: pointer;
 
-    transform: translateZ(0.3vh);
+    transform: translateZ(0.1vw);
 
     transition: transform 0.1s ease;
 
     transition-style: preserve-3d;
 
-
     &:active {
-        transform: translateZ(0vh);
+        transform: translateZ(0.05vw);
     }
 
     &:focus {
         outline: 1px solid #11111100;
-        font-weight: 700;
-        background: #ffffffee;
     }
 
 
