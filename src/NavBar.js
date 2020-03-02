@@ -26,7 +26,7 @@ class NavBar extends Component {
 
               <Group>
 
-                <Heading>Demos</Heading>
+                <legend>Demos</legend>
 
                 <StyledLink current={path === "/cards"} to="/cards">Card Deck</StyledLink>
                 <StyledLink current={path === "/flip"} to="/flip">Flippable Card</StyledLink>
@@ -37,7 +37,7 @@ class NavBar extends Component {
 
               <Group>
 
-                <Heading>Themes</Heading>
+                <legend>Themes</legend>
 
                 <ThemeButton current={theme === "styled"} onClick={changeTheme("styled")}>Styled</ThemeButton>
                 <ThemeButton current={theme === "sepia"} onClick={changeTheme("sepia")}>Sepia</ThemeButton>
@@ -59,26 +59,24 @@ const Group = styled.fieldset`
   width: 90%;
   align-self: center;
 
-  margin: 0.4vw 0;
+  margin: 0.2vw 0;
 
   border: ${props => props.theme.size.border / 8}vw solid ${props => props.theme.color.lightText};
   ${props => props.theme.borderRadius}
 
-`
+  & legend {
+    color: ${props => props.theme.color.lightText};
+    font-weight: 700;
 
-const Heading = styled.legend`
-
-  color: ${props => props.theme.color.lightText};
-  font-weight: 700;
-
-  margin: 0 0 0 0.2vw;
-  padding: 0 0.4vw;
+    margin: 0 0 0 0.2vw;
+    padding: 0 0.2vw;
+  }
 
 `
 
 
 const groupItemStyle = css`
-  margin: 0 0 0.5vw 0;
+  margin: 0 0 0.4vw 0;
 
   width: fit-content;
 
@@ -98,6 +96,13 @@ const groupItemStyle = css`
   }
 `
 
+const StyledLink = styled(Link)`
+
+  ${groupItemStyle}
+
+`
+
+
 const ThemeButton = styled.a`
 
   ${groupItemStyle}
@@ -106,16 +111,9 @@ const ThemeButton = styled.a`
 
 `
 
-const StyledLink = styled(Link)`
-
-  ${groupItemStyle}
-
-`
-
 
 const Title = styled.div`
 
-  
   color: ${props => props.theme.color.lightText};
   font-style: italic;
   font-size: 1.4vw;
@@ -127,7 +125,6 @@ const Title = styled.div`
   position: relative;
 
 `
-
 
 const Icon = styled.div`
 
@@ -150,7 +147,7 @@ const Container = styled.div`
   top: 0;
   left: 6vw;
 
-  height: 6vw;
+  height: 5vw;
   width: 10vw;
 
   z-index: 2;
