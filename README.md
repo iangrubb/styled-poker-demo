@@ -12,7 +12,7 @@
         * 🙅‍♂️ Lacks some tools for writting clean code (e.g. no nesting) 🙅‍♂️
         * 🙅‍♂️ Namespace for classes is limited 🙅‍♂️
         * 🙅‍♂️ Using just one CSS file isn't good React, but difficult to manage multiple CSS files 🙅‍♂️
-        * 🙅‍♂️ Changing styles at runtime requires imperitivaly toggling class names 🙅‍♂️
+        * 🙅‍♂️ Changing styles at runtime requires imperatively toggling class names 🙅‍♂️
     * Sass
         * 🙆‍♂️ More advanced syntax that enables cleaner code 🙆‍♂️
     * CSS Modules
