@@ -5,22 +5,26 @@
 
 ## Background
 
-CSS is great, but writing CSS that scales is kinda terrible
-
 ### Some Ways of Styling React Apps
 
 * CSS in CSS
-    * app.css
+    * Vanilla CSS
+        * 🙅‍♂️ Lacks some tools for writting clean code (e.g. no nesting) 🙅‍♂️
+        * 🙅‍♂️ Namespace for classes is limited 🙅‍♂️
+        * 🙅‍♂️ Using just one CSS file isn't good React, but difficult to manage multiple CSS files 🙅‍♂️
+        * 🙅‍♂️ Changing styles at runtime requires imperitivaly toggling class names 🙅‍♂️
     * Sass
-        Allows more advanced syntax, making for more readable, DRY code 
+        * 🙆‍♂️ More advanced syntax that enables cleaner code 🙆‍♂️
     * CSS Modules
-        Allows CSS to be organized modularly, prevents name conflicts
+        * 🙆‍♂️ Makes it easier to write one CSS file per component, manage namespace 🙆‍♂️
 
 * CSS in JS
     * Inline Styling
-        Allows more declarative style toggling
+        * 🙆‍♂️ Declarative style toggling 🙆‍♂️
+        * 🙅‍♂️ Hard to read HTML 🙅‍♂️
+        * 🙅‍♂️ Not compatible with all CSS features 🙅‍♂️
     * Styled Components
-        All of the above 
+        * 🤯😍 Literally all the good stuff 🤯😍
 
 
 ## Demo
