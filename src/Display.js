@@ -56,7 +56,7 @@ const Name = styled.h4`
     margin: 0;
 
     font-family: "Open Sans";
-    color: ${props => props.theme.color.darkUi};
+    color: ${props => props.theme.color.darkText};
 
 `
 
@@ -71,16 +71,17 @@ const Row = styled.div`
 
 const Button = styled.button`
 
-    background: #ffffffcc;
-    color: ${props => props.theme.color.darkUi};
+    background: ${props => props.theme.color.lightUi}cc;
+    color: ${props => props.theme.color.darkText};
 
     font-family: "Open Sans";
     font-size: 0.8vw;
 
-    width: 100%;
+    width: 4vw;
     height: 100%;
 
-    margin: 0 0.2vw;
+    margin: 0 0.3vw;
+    padding: 0.2vw 0.4vw;
 
     border: 0.15vw solid ${props => props.theme.color.darkUi};
 
@@ -96,6 +97,11 @@ const Button = styled.button`
 
     &:active {
         transform: translateZ(0.05vw);
+    }
+
+    &:hover {
+        box-shadow: inset 0 0 0 0.05vw ${props => props.theme.color.darkUi};
+        font-weight: 700;
     }
 
     &:focus {

@@ -39,7 +39,7 @@ const CardGrid = styled.div`
     ${props => props.theme.borderRadius}
 
     display: grid;
-    grid-template-rows: repeat(4, fit-content);
+    grid-template-rows: repeat(8, fit-content);
     grid-template-columns: repeat(14, fit-content);
 
     grid-column-gap: 0.2vw;
@@ -50,7 +50,7 @@ const CardGrid = styled.div`
 const PositionedCardBack = styled(CardBack)`
 
     grid-column: 1;
-    grid-row: 1;
+    grid-row: 5/7;
 
     justify-self: center;
     align-self: center;
@@ -60,7 +60,7 @@ const PositionedCardBack = styled(CardBack)`
 const PositionedCardFace = styled(CardFace)`
 
     grid-column: ${props => props.column};
-    grid-row: ${props => props.row};
+    grid-row: ${props => props.row * 2}/${props => (props.row + 1) * 2};
 
     justify-self: center;
     align-self: center;

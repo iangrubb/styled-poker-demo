@@ -3,11 +3,11 @@
 export const styledTheme = {
     color: {
       lightUi: '#fff2ec',
-      darkUi: '#DB7093',
-      lightGradient: '#CCA464',
-      darkGradient: '#DB7093',
+      darkUi: '#E5829B',
+      lightGradient: '#EABE77',
+      darkGradient: '#E5829B',
       lightText: '#ffffff',
-      darkText: '#430949',
+      darkText: '#4F314F',
       cardWhite: '#ffffff',
       cardBlue: '#7EC6EA',
       cardBlack: '#430949',
@@ -22,18 +22,18 @@ export const styledTheme = {
     }
 }
   
-export const grayscaleTheme = {
+export const sepiaTheme = {
     color: {
-      lightUi: '#eeeeee',
-      darkUi: '#222222',
-      lightGradient: '#aaaaaa',
-      darkGradient: '#444444',
-      lightText: '#eeeeee',
-      darkText: '#222222',
-      cardWhite: '#ffffff',
-      cardBlue: '#aaaaaa',
-      cardBlack: '#111111',
-      cardRed: '#888888'
+      lightUi: '#fbf3e4',
+      darkUi: '#623c43',
+      lightGradient: '#bb9986',
+      darkGradient: '#623c43',
+      lightText: '#fbf3e4',
+      darkText: '#282114',
+      cardWhite: '#FAF0E1',
+      cardBlue: '#685560',
+      cardBlack: '#422e3c',
+      cardRed: '#9c6a5e'
     },
     font: {
       display: "font-family: Space Mono;",
@@ -44,16 +44,16 @@ export const grayscaleTheme = {
     }
 }
   
-export const thirdTheme = {
+export const nightTheme = {
     color: {
-        lightUi: '#1F3E54',
-        darkUi: '#1E1423',
-        lightGradient: '#1F3E54',
+        lightUi: '#1E1423',
+        darkUi: '#3C5C72',
+        lightGradient: '#3C5C72',
         darkGradient: '#1E1423',
         lightText: '#F4F6FF',
-        darkText: '#63EDBF',
+        darkText: '#90DDC3',
         cardWhite: '#F4F6FF',
-        cardBlue: '#1F3E54',
+        cardBlue: '#3C5C72',
         cardBlack: '#1E1423',
         cardRed: '#D02D68'
     },

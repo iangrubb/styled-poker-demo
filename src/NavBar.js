@@ -40,8 +40,8 @@ class NavBar extends Component {
                 <Heading>Themes</Heading>
 
                 <ThemeButton current={theme === "styled"} onClick={changeTheme("styled")}>Styled</ThemeButton>
-                <ThemeButton current={theme === "grayscale"} onClick={changeTheme("grayscale")}>Grayscale</ThemeButton>
-                <ThemeButton current={theme === "third"} onClick={changeTheme("third")}>Third</ThemeButton>
+                <ThemeButton current={theme === "sepia"} onClick={changeTheme("sepia")}>Sepia</ThemeButton>
+                <ThemeButton current={theme === "night"} onClick={changeTheme("night")}>Night</ThemeButton>
 
               </Group>
           </Container>
@@ -78,7 +78,7 @@ const Heading = styled.legend`
 
 
 const groupItemStyle = css`
-  margin: 0 0 1vh 0;
+  margin: 0 0 0.5vw 0;
 
   width: fit-content;
 
@@ -86,6 +86,7 @@ const groupItemStyle = css`
   color: ${props => props.theme.color.lightText};
 
   text-decoration: none;
+  font-size: 1vw;
   font-weight: ${props => props.current ? "700" : "400"};
   font-style: ${props => props.current ? "normal" : "italic"};
 
@@ -101,6 +102,8 @@ const ThemeButton = styled.a`
 
   ${groupItemStyle}
 
+  cursor: pointer;
+
 `
 
 const StyledLink = styled(Link)`
@@ -112,11 +115,12 @@ const StyledLink = styled(Link)`
 
 const Title = styled.div`
 
-  font-style: italic;
+  
   color: ${props => props.theme.color.lightText};
+  font-style: italic;
+  font-size: 1.4vw;
 
-  font-size: 2.4vh;
-  margin: 0.2vh 0;
+  margin: 0.2vw 0;
 
   transition: all 0.2s ease;
 
@@ -129,7 +133,7 @@ const Icon = styled.div`
 
   font-style: normal;
   font-weight: 700;
-  font-size: 2.4vh;
+  font-size: 1.2vw;
   ${props => props.theme.font.text}
   color: ${props => props.theme.color.lightText};
 
@@ -144,13 +148,16 @@ const Container = styled.div`
   ${props => props.theme.font.display}
 
   top: 0;
-  left: 8vh;
+  left: 6vw;
+
+  height: 6vw;
+  width: 10vw;
 
   z-index: 2;
 
   background: linear-gradient(20deg, ${props => props.theme.color.darkGradient}, ${props => props.theme.color.lightGradient});
 
-  padding: 1vh 2vh;
+  padding: 1vw 2vw;
 
   border: ${props => props.theme.size.border}vw solid ${props => props.theme.color.darkUi};
 
@@ -161,15 +168,12 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  overflow: none;
+  overflow: hidden;
 
-  transition: all 0.2s ease;
-
-  height: 10vh;
-  width: 24vh;
+  transition: height 0.2s ease;
 
   &:hover {
-    height: 54vh;
+    height: 28vw;
   }
 
   &:hover ${Group} {
@@ -178,13 +182,9 @@ const Container = styled.div`
     align-items: center;
   }
 
-  &:hover ${Icon} {
-    font-size: 2.8vh;
-  }
-
   &:hover ${Title} {
-    font-size: 3.4vh;
-    margin: 0 0 0.4vh 0;
+    font-size: 2vw;
+    margin: 0 0 0.2vw 0;
   }
 
 

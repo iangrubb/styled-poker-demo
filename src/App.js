@@ -38,10 +38,10 @@ export default class App extends Component {
     switch(theme) {
       case "styled":
         return themes.styledTheme
-      case "grayscale":
-        return themes.grayscaleTheme
-      case "third":
-        return themes.thirdTheme
+      case "sepia":
+        return themes.sepiaTheme
+      case "night":
+        return themes.nightTheme
       default:
         return {}
     }
