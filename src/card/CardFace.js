@@ -75,7 +75,7 @@ export default class CardFace extends Component {
         return (
             <Container className={this.props.className}>
                 
-                {/* <Rank color={this.color} row={1} column={1}>
+                <Rank color={this.color} row={1} column={1}>
                     {this.props.rank}
                 </Rank>
                 <SmallSuit color={this.color} row={2} column={1}>
@@ -89,16 +89,19 @@ export default class CardFace extends Component {
                 </Rank>
                 <SmallSuit color={this.color} row={14} column={5} invert={true}>
                     {this.symbol}
-                </SmallSuit> */}
+                </SmallSuit>
 
             </Container>
         )
     }
 }
 
-const Container = styled.div`
 
-    background: white;
+
+// Card black: #430949
+// Card red: #E0477A
+
+const Container = styled.div`
 
     display: grid;
     grid-template-rows: 1fr repeat(13, 4.5%) 1fr;
@@ -108,15 +111,8 @@ const Container = styled.div`
 
 const Symbol = styled.div`
 
-    grid-row: ${props => props.row};
-    grid-column: ${props => props.column};
+    display: none;
 
-    justify-self: center;
-    align-self: center;
-
-    transform: rotate(${props => props.invert ? '180deg' : '0'});
-
-    color: ${props => props.color === "red" ? props.theme.color.cardRed : props.theme.color.cardBlack };
 
 `
 
@@ -147,17 +143,15 @@ const Circle = styled(Symbol)`
     align-self: stretch;
     text-align: center;
 
-    background: ${props => props.color === "red" ? props.theme.color.cardRed : props.theme.color.cardBlack };
+    background: ${props => props.color === "red" ? "#E0477A" : "#430949" };
 
     border-radius: 50%;
-
-    ${props => props.theme.centerChild}
 
 `
 
 const Ace = styled(Symbol)`
 
-    color: ${props => props.theme.color.cardWhite};
+    color: white;
 
     font-size: 2.4vw;
 

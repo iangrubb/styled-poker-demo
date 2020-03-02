@@ -14,8 +14,6 @@ class NavBar extends Component {
 
     render() {
 
-      const { theme , changeTheme } = this.props
-
       const path = this.props.location.pathname
 
       return (
@@ -34,16 +32,6 @@ class NavBar extends Component {
 
               </Group>
           
-
-              <Group>
-
-                <legend>Themes</legend>
-
-                <ThemeButton current={theme === "styled"} onClick={changeTheme("styled")}>Styled</ThemeButton>
-                <ThemeButton current={theme === "sepia"} onClick={changeTheme("sepia")}>Sepia</ThemeButton>
-                <ThemeButton current={theme === "night"} onClick={changeTheme("night")}>Night</ThemeButton>
-
-              </Group>
           </Container>
       )
     }
@@ -61,11 +49,11 @@ const Group = styled.fieldset`
 
   margin: 0.2vw 0;
 
-  border: ${props => props.theme.size.border / 8}vw solid ${props => props.theme.color.lightText};
-  ${props => props.theme.borderRadius}
+  border: 0.1vw solid white;
+  border-radius: 0.4vw;
 
   & legend {
-    color: ${props => props.theme.color.lightText};
+    color: white;
     font-weight: 700;
 
     margin: 0 0 0 0.2vw;
@@ -75,46 +63,36 @@ const Group = styled.fieldset`
 `
 
 
-const groupItemStyle = css`
+const StyledLink = styled(Link)`
+
   margin: 0 0 0.4vw 0;
 
   width: fit-content;
 
-  box-shadow: 0 ${props => props.current ? 0.4 : 0.2}vh 0 ${props => props.theme.color.lightText};
-  color: ${props => props.theme.color.lightText};
+  
 
   text-decoration: none;
   font-size: 1vw;
-  font-weight: ${props => props.current ? "700" : "400"};
-  font-style: ${props => props.current ? "normal" : "italic"};
+
+  font-weight: 400;
+  font-style: italic;
+  box-shadow: 0 0.2vh 0 white;
+
+  color: white;
 
   transition: all 0.2s ease;
 
   &:hover {
-    color: ${props => props.theme.color.darkText};
-    box-shadow: 0 ${props => props.current ? 0.4 : 0.2}vh ${props => props.theme.color.darkText};
+    color: #4F314F;
+    box-shadow: 0 ${props => props.current ? 0.4 : 0.2}vh #4F314F;
   }
-`
-
-const StyledLink = styled(Link)`
-
-  ${groupItemStyle}
-
-`
-
-
-const ThemeButton = styled.a`
-
-  ${groupItemStyle}
-
-  cursor: pointer;
 
 `
 
 
 const Title = styled.div`
 
-  color: ${props => props.theme.color.lightText};
+  color: white;
   font-style: italic;
   font-size: 1.4vw;
 
@@ -131,10 +109,8 @@ const Icon = styled.div`
   font-style: normal;
   font-weight: 700;
   font-size: 1.2vw;
-  ${props => props.theme.font.text}
-  color: ${props => props.theme.color.lightText};
-
-  ${props => props.theme.borderRadius}
+  font-family: "Open Sans";
+  color: white;
 
 `
 
@@ -142,7 +118,7 @@ const Container = styled.div`
 
   position: absolute;
 
-  ${props => props.theme.font.display}
+  font-family: "Space Mono";
 
   top: 0;
   left: 6vw;
@@ -152,13 +128,13 @@ const Container = styled.div`
 
   z-index: 2;
 
-  background: linear-gradient(20deg, ${props => props.theme.color.darkGradient}, ${props => props.theme.color.lightGradient});
+  background: linear-gradient(20deg, #E5829B, #EABE77);
 
   padding: 1vw 2vw;
 
-  border: ${props => props.theme.size.border}vw solid ${props => props.theme.color.darkUi};
+  border: 0.4vw solid #E5829B;
 
-  ${props => props.theme.borderRadius}
+  border-radius: 0.4vw;
 
   display: flex;
   flex-direction: column;
@@ -170,18 +146,15 @@ const Container = styled.div`
   transition: height 0.2s ease;
 
   &:hover {
-    height: 28vw;
-  }
 
-  &:hover ${Group} {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 
   &:hover ${Title} {
-    font-size: 2vw;
-    margin: 0 0 0.2vw 0;
+
+  }
+
+  &:hover ${Group} {
+
   }
 
 

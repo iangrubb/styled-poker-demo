@@ -27,27 +27,31 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
 
-    ${props => props.theme.centerChild}
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 `
 
 const Surface = styled.div`
 
-    background: linear-gradient(20deg, ${props => props.theme.color.darkGradient}aa, ${props => props.theme.color.lightGradient}aa);
-
-    transform: scale(2) perspective(600px) rotateX(60deg) rotate(30deg);
-    transform-style: preserve-3d;
+    background: linear-gradient(20deg, #E5829Baa, #EABE77aa);
 
     width: 20vw;
     height: 20vw;
 
     border-radius: 50%;
     
-    border: ${props => props.theme.size.border / 2}vw solid ${props => props.theme.color.darkUi};
+    border: 0.2vw solid #E5829B;
 
-    ${props => props.theme.centerChild}
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     cursor: pointer;
+
+    transform: scale(2);
+    transform-style: preserve-3d;
 
 `
 

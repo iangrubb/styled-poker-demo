@@ -32,14 +32,28 @@
 
 ### Card Backs
 
+Static CSS
 
 ### Card Faces
 
+Sharing and Extending Styles
+
+Determining CSS from passed props (row/column location, color, invert)
 
 ### Navigation
 
+Using CSS selectors
+
+Toggling CSS based on application state ( special styling for current link)
+
 
 ### Card Rotation
+
+Perspective
+
+component reuse and the css tag
+
+More toggling CSS based on application state ( angle and flipDuration )
 
 
 ### Card Rotation w/ Translations
