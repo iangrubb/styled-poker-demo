@@ -74,45 +74,31 @@ export default class CardFace extends Component {
     render() {
         return (
             <Container className={this.props.className}>
-
-                <Rank color={this.color} row={1} column={1}>
+                
+                {/* <Rank color={this.color} row={1} column={1}>
                     {this.props.rank}
                 </Rank>
                 <SmallSuit color={this.color} row={2} column={1}>
                     {this.symbol}
                 </SmallSuit>
 
-                <Rank color={this.color} row={1} column={5}>
-                    {this.props.rank}
-                </Rank>
-                <SmallSuit color={this.color} row={2} column={5}>
-                    {this.symbol}
-                </SmallSuit>
-
                 {this.determineConditionalRender(this.type)}                        
-
-                <Rank color={this.color} row={15} column={1} invert={true}>
-                    {this.props.rank}
-                </Rank>
-                <SmallSuit color={this.color} row={14} column={1} invert={true}>
-                    {this.symbol}
-                </SmallSuit>
 
                 <Rank color={this.color} row={15} column={5} invert={true}>
                     {this.props.rank}
                 </Rank>
                 <SmallSuit color={this.color} row={14} column={5} invert={true}>
                     {this.symbol}
-                </SmallSuit>
+                </SmallSuit> */}
 
             </Container>
         )
     }
 }
 
-const Container = styled(CardFrame)`
+const Container = styled.div`
 
-    background: ${props => props.theme.color.cardWhite};
+    background: white;
 
     display: grid;
     grid-template-rows: 1fr repeat(13, 4.5%) 1fr;
