@@ -9,17 +9,17 @@ CSS is great, but writing CSS that scales is kinda terrible
 
 ### Some Ways of Styling React Apps
 
-1. CSS in CSS
-    a. app.css
-    b. Sass
+* CSS in CSS
+    * app.css
+    * Sass
         Allows more advanced syntax, making for more readable, DRY code 
-    c. CSS Modules
+    * CSS Modules
         Allows CSS to be organized modularly, prevents name conflicts
 
-2. CSS in JS
-    a. Inline Styling
+* CSS in JS
+    * Inline Styling
         Allows more declarative style toggling
-    b. Styled Components
+    * Styled Components
         All of the above 
 
 
