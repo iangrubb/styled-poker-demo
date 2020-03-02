@@ -101,7 +101,9 @@ export default class CardFace extends Component {
 // Card black: #430949
 // Card red: #E0477A
 
-const Container = styled.div`
+const Container = styled(CardFrame)`
+
+    background: white;
 
     display: grid;
     grid-template-rows: 1fr repeat(13, 4.5%) 1fr;
@@ -111,7 +113,17 @@ const Container = styled.div`
 
 const Symbol = styled.div`
 
-    display: none;
+    grid-row: ${props => props.row};
+    grid-column: ${props => props.column};
+
+    color: ${props => props.color === "red" ? '#E0477A' : '#430949'};
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform: rotate(${props => props.invert ? 180 : 0}deg);
+
 
 
 `

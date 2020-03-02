@@ -11,8 +11,7 @@
     * Vanilla CSS
         * 🙅‍♂️ Lacks some tools for writting clean code (e.g. no nesting) 🙅‍♂️
         * 🙅‍♂️ Namespace for classes is limited 🙅‍♂️
-        * 🙅‍♂️ Using just one CSS file isn't good React, but difficult to manage multiple CSS files 🙅‍♂️
-        * 🙅‍♂️ Changing styles at runtime requires imperitivaly toggling class names 🙅‍♂️
+        * 🙅‍♂️ Changing styles at runtime requires imperatively toggling class names 🙅‍♂️
     * Sass
         * 🙆‍♂️ More advanced syntax that enables cleaner code 🙆‍♂️
     * CSS Modules
@@ -26,8 +25,22 @@
     * Styled Components
         * 🤯😍 Literally all the good stuff 🤯😍
 
+### How it works
+
+Developers make styled components using the exported `styled` tag.
+Developers make styled components with strings, which become CSS.
+Developers pass props to styled components.
+
+Styled components writes classnames to the dom and CSS content to an internal stylesheet.
+Styked components updates classnames and writes new CSS content when props change.
+
 
 ## Demo
+
+Two branchs:
+
+1. Master -- A finished version of the application.
+2. Walkthrough -- An incomplete version that needs additions to its styled components.
 
 
 ### Card Backs
